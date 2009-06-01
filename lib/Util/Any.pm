@@ -2,6 +2,7 @@ package Util::Any;
 
 use ExportTo ();
 use Carp ();
+use Clone ();
 use warnings;
 use List::MoreUtils qw/uniq/;
 use strict;
@@ -22,7 +23,7 @@ sub import {
 
   no strict 'refs';
 
-  my $config = ${$pkg . '::Utils'};
+  my $config = Clone::clone(${$pkg . '::Utils'});
   my %want;
   my %opt = (prefix => 0, module_prefix => 0, debug => 0);
 
@@ -151,7 +152,7 @@ Util::Any - Export any utilities and To create your own Util::Any
 
 =cut
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 =head1 SYNOPSIS
 
