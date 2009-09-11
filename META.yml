@@ -1,20 +1,31 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Util-Any
-version:      0.07
-version_from: lib/Util/Any.pm
-installdirs:  site
+--- #YAML:1.0
+name:               Util-Any
+version:            0.08
+abstract:           to export any utilities and to create your own Utilitie module
+author:
+    - Ktat <ktat@cpan.org>
+license:            unknown
+distribution_type:  module
+configure_requires:
+    ExtUtils::MakeMaker:  0
+build_requires:
+    ExtUtils::MakeMaker:  0
 requires:
-    Clone:                         0
-    Data::Dumper:                  0
-    ExportTo:                      0
-    Hash::Util:                    0
-    List::MoreUtils:               0
-    List::Util:                    0
-    Scalar::Util:                  0
-    String::CamelCase:             0
-    String::Util:                  0
-    Test::More:                    0
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.30_01
+    Clone:              0
+    Data::Dumper:       0
+    ExportTo:           0
+    Hash::Util:         0
+    List::MoreUtils:    0
+    List::Util:         0
+    Scalar::Util:       0
+    String::CamelCase:  0
+    String::Util:       0
+    Test::More:         0
+no_index:
+    directory:
+        - t
+        - inc
+generated_by:       ExtUtils::MakeMaker version 6.52
+meta-spec:
+    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
+    version:  1.4
