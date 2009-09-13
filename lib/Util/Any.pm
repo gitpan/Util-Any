@@ -41,7 +41,7 @@ sub import {
       ($class, $module_prefix, $options) = @$class if ref $class;
       $prefix = $kind_prefix                             ? $kind_prefix   :
                 ($opt{module_prefix} and $module_prefix) ? $module_prefix :
-                $opt{prefix}                             ? lc($kind) . '_': '';
+                $opt{prefix}                             ? lc(join "",$kind =~m{(\w+)}g) . '_': '';
 
       my $evalerror = '';
       if ($evalerror = do { local $@; eval "require $class"; $evalerror = $@ }) {
@@ -259,7 +259,7 @@ Util::Any - to export any utilities and to create your own Utilitie module
 
 =cut
 
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 
 =head1 SYNOPSIS
 
@@ -795,11 +795,15 @@ The following modules can work with Util::Any.
 
 L<Exporter>, L<Exporter::Simple>, L<Sub::Exporter> and L<Perl6::Export::Attrs>.
 
+Now I try to make L<Util::All> module based on Util::Any. see the following URL.
+
+ http://github.com/ktat/Util-All
+
 =head1 ACKNOWLEDGEMENTS
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2008 Ktat, all rights reserved.
+Copyright 2008-2009 Ktat, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
