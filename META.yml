@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Util-Any
-version:            0.18
+version:            0.19
 abstract:           to export any utilities and to create your own utilitiy module
 author:
     - Ktat <ktat@cpan.org>
@@ -16,6 +16,7 @@ requires:
     ExportTo:           0
     Hash::Util:         0
     List::MoreUtils:    0
+    List::Pairwise:     0
     List::Util:         0
     Module::Pluggable:  0
     Scalar::Util:       0
@@ -26,7 +27,7 @@ no_index:
     directory:
         - t
         - inc
-generated_by:       ExtUtils::MakeMaker version 6.54
+generated_by:       ExtUtils::MakeMaker version 6.56
 meta-spec:
     url:      http://module-build.sourceforge.net/META-spec-v1.4.html
     version:  1.4
