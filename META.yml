@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Util-Any
-version:            0.20
+version:            0.21
 abstract:           to export any utilities and to create your own utilitiy module
 author:
     - Ktat <ktat@cpan.org>
@@ -22,7 +22,7 @@ requires:
     Scalar::Util:       0
     String::CamelCase:  0
     String::Util:       0
-    Test::More:         0
+    Test::More:         0.88
 no_index:
     directory:
         - t
