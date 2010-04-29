@@ -92,7 +92,7 @@ sub _kind_exporter {
 
     my $evalerror = '';
     if ($evalerror = do { local $@; eval {my $path = $class; $path =~s{::}{/}go; require $path. ".pm"; $evalerror = $@ }; $@}) {
-      # if ($evalerror = do { local $@; eval "require $class";  $evalerror = $@ }) {
+      # if ($evalerror = do { local $@; eval "require $class"; $evalerror = $@ }) {
       $opt->{debug} == 2 ? Carp::croak $evalerror : Carp::carp $evalerror;
     }
 
@@ -123,7 +123,7 @@ sub _kind_exporter {
           if (exists $local_definition->{$function}) {
             foreach my $def (@{$local_definition->{$function}}) {
               my %arg;
-              $arg{$_} = $def->{$_}  for grep !/^-/, keys %$def;
+              $arg{$_} = $def->{$_} for grep !/^-/, keys %$def;
               ExportTo::export_to($caller => {($def->{-as} || $function)
                                               => $gen->($pkg, $class, $function, \%arg, $kind_args)});
             }
@@ -136,7 +136,7 @@ sub _kind_exporter {
           }
           $exported{$function} = undef;
         } elsif (defined &{$class . '::' . $function}) {
-          push @funcs , $function;
+          push @funcs, $function;
           $rename{$function} = $config_options->{$function};
         }
       }
@@ -257,7 +257,11 @@ sub _arrange_args {
     if (_any {ref $_} @$org_args) {
       for (my $i = 0; $i < @$org_args; $i++) {
         my $kind = $org_args->[$i];
-        my $import_setting = ref $org_args->[$i + 1] ? $org_args->[++$i] : undef;
+        my $ref = ref $org_args->[$i + 1];
+        my $import_setting =  $ref ? $org_args->[++$i] : undef;
+        if ($ref eq 'ARRAY' and !@$import_setting) {
+          $import_setting = [''];
+        }
         _insert_want_arg($config, $kind, $import_setting, \%want_kind, \@arg);
       }
     } else {
@@ -304,9 +308,9 @@ sub _lazy_load_plugins {
   for my $i (0 .. $#{$org_args}) {
     next if ref $org_args->[$i];
     my $k = $org_args->[$i];
-    $k =~ s{\W}{}g;
+    $k =~ s{\W+}{}g;
     $k =~ s{_}{::}g;
-    $k =~ s{^(.+)(::all)$}{$1|${1}::\\w+} and push @all, $i;
+    $k =~ s{^(.+)::all$}{$1|$1::\\w+} and push @all, $i;
     push @kinds, $k;
   }
   return unless @kinds;
@@ -336,7 +340,7 @@ sub _func_definitions {
   my ($pkg, $want_func_definition) = @_;
   my ($kind_prefix, $kind_args, @wanted_funcs, %funcs, %local_definition);
   if (ref $want_func_definition eq 'HASH') {
-    # list => {func => {-as => 'rename'}};  list => {-prefix => 'hoge_' }
+    # list => {func => {-as => 'rename'}}; list => {-prefix => 'hoge_' }
     $kind_prefix = $want_func_definition->{-prefix}
       if exists $want_func_definition->{-prefix};
     $kind_args = $want_func_definition->{-args}
@@ -384,7 +388,7 @@ sub _do_base_import {
   } elsif ($import_module eq 'Sub::Exporter') {
     no strict 'refs';
     no warnings;
-    my $import_name =  ${"${pkg}::SubExporterImport"} || $Util::Any::SubExporterImport;
+    my $import_name = ${"${pkg}::SubExporterImport"} || $Util::Any::SubExporterImport;
     eval "package $caller; $pkg" . '->$import_name(@$arg);';
   }
   die $@ if $@;
@@ -397,8 +401,7 @@ sub _base_import {
     push @{"${caller}::ISA"}, __PACKAGE__;
   }
   my @unknown;
-  return unless @flgs;
-  while (my $flg = lc shift @flgs) {
+  while (@flgs and my $flg = lc shift @flgs) {
     no strict 'refs';
     if ($flg eq '-perl6exportattrs') {
       eval {require Perl6::Export::Attrs };
@@ -437,7 +440,7 @@ Util::Any - to export any utilities and to create your own utilitiy module
 
 =cut
 
-our $VERSION = '0.21';
+our $VERSION = '0.22';
 
 =head1 SYNOPSIS
 
@@ -1075,7 +1078,6 @@ This definition works like as pragma.
 
 function name '.' is special. This name is not exported and only execute the code in the definition.
 
-
 =head2 ADD DEFAULT ARGUMENT FOR EXPORTING
 
 Define the following method.
@@ -1093,9 +1095,9 @@ is equal to
 
  use Your::Utils -list, -string;
 
-If you want disable default kinds.
+If you want to disable default kinds.
 
- use Your::Utils -list => [''], -string;
+ use Your::Utils -list => [], -string;
 
 =head2 ADD PLUGGABLE FEATURE FOR YOUR MODULE
 

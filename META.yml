@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Util-Any
-version:            0.21
+version:            0.22
 abstract:           to export any utilities and to create your own utilitiy module
 author:
     - Ktat <ktat@cpan.org>
