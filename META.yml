@@ -1,33 +1,51 @@
---- #YAML:1.0
-name:               Util-Any
-version:            0.22
-abstract:           to export any utilities and to create your own utilitiy module
+---
+abstract: 'to export any utilities and to create your own utility module'
 author:
-    - Ktat <ktat@cpan.org>
-license:            unknown
-distribution_type:  module
-configure_requires:
-    ExtUtils::MakeMaker:  0
+  - 'Ktat, C<< <ktat at cpan.org> >>'
 build_requires:
-    ExtUtils::MakeMaker:  0
-requires:
-    Clone:              0
-    Data::Dumper:       0
-    ExportTo:           0
-    Hash::Util:         0
-    List::MoreUtils:    0
-    List::Pairwise:     0
-    List::Util:         0
-    Module::Pluggable:  0
-    Scalar::Util:       0
-    String::CamelCase:  0
-    String::Util:       0
-    Test::More:         0.88
-no_index:
-    directory:
-        - t
-        - inc
-generated_by:       ExtUtils::MakeMaker version 6.56
+  ExtUtils::MakeMaker: '0'
+configure_requires:
+  Module::Build: '0.38'
+dynamic_config: 0
+generated_by: 'Minilla/v2.1.1, CPAN::Meta::Converter version 2.141520'
+license: perl
 meta-spec:
-    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
-    version:  1.4
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: '1.4'
+name: Util-Any
+no_index:
+  directory:
+    - t
+    - xt
+    - inc
+    - share
+    - eg
+    - examples
+    - author
+    - builder
+provides:
+  Util::Any:
+    file: lib/Util/Any.pm
+    version: '0.24'
+requires:
+  Clone: '0'
+  Data::Dumper: '0'
+  ExportTo: '0'
+  Hash::Util: '0'
+  List::MoreUtils: '0'
+  List::Pairwise: '0'
+  List::Util: '0'
+  Module::Pluggable: '0'
+  Scalar::Util: '0'
+  String::CamelCase: '0'
+  String::Util: '0'
+  Test::More: '0.88'
+resources:
+  bugtracker: https://github.com/ktat/Util-Any/issues
+  homepage: https://github.com/ktat/Util-Any
+  repository: git://github.com/ktat/Util-Any.git
+version: '0.24'
+x_contributors:
+  - 'drry <drry@d0d07461-0603-4401-acd4-de1884942a52>'
+  - 'ktat <ktat@d0d07461-0603-4401-acd4-de1884942a52>'
+  - 'ktat <ktat.is@gmail.com>'
